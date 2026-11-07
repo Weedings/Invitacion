@@ -198,6 +198,17 @@ button.btn{font-family:inherit;-webkit-appearance:none;appearance:none;cursor:po
 .rc .btn{width:100%;margin-top:8px;letter-spacing:.12em;padding:13px 8px;font-size:15px}
 .rc .rx{position:absolute;top:6px;right:10px;border:0;background:none;font-size:30px;line-height:1;color:#8f7b44;cursor:pointer;padding:6px}
 .rc #rthanks p{font-size:21px;line-height:1.4;margin:16px 0 6px}
+/* formulario más compacto + botón de enviar siempre visible */
+.rc{padding:20px 20px 14px}
+.rc h3{font-size:36px}
+.rc .rs{margin:2px 0 0;font-size:14px}
+.rc label{margin:10px 0 0;font-size:15px}
+.rc input[type=text],.rc select,.rc textarea{padding:5px 2px;font-size:19px}
+.rc textarea{height:40px}
+.rc .rr{margin-top:12px}.rc .rr span{padding:9px 6px}
+.rc #rmsg{min-height:0;margin:8px 0 0}
+.rc form{padding-bottom:2px}
+.rc button[type=submit]{position:sticky;bottom:6px;z-index:3}
 </style></head><body><main>
 
 <!-- 1. PORTADA -->
@@ -323,8 +334,6 @@ a.style.backgroundImage=b.style.backgroundImage='url('+i.src+')';g.insertBefore(
    <div class="rr"><label><input type="radio" name="asistencia" value="Sí asistiré"><span>Sí asistiré</span></label><label><input type="radio" name="asistencia" value="No podré asistir"><span>No podré asistir</span></label></div>
    <label class="si">Adultos (contándote a ti)<select name="adultos"></select></label>
    <label class="si">Niños<select name="ninos"></select></label>
-   <label class="si">Nombres de tus acompañantes (opcional)<textarea name="acompanantes" rows="2" maxlength="200"></textarea></label>
-   <label>Comentarios o restricciones alimenticias (opcional)<textarea name="comentarios" rows="2" maxlength="200"></textarea></label>
    <input name="web" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
    <p id="rmsg" role="alert"></p>
    <button class="btn" type="submit">ENVIAR CONFIRMACIÓN</button>
@@ -354,7 +363,7 @@ F.addEventListener('submit',function(e){e.preventDefault();if(F.web.value)return
  if(!RSVP_URL){msg('Falta configurar el envío (RSVP_URL).');return}
  var si=F.asistencia.value==='Sí asistiré',btn=F.querySelector('button[type=submit]');
  var ad=si?+F.adultos.value:0,ni=si?+F.ninos.value:0;
- var body=new URLSearchParams({id:ID,nombre:nombre,asistencia:F.asistencia.value,adultos:ad,ninos:ni,total:ad+ni,acompanantes:si?F.acompanantes.value.trim():'',comentarios:F.comentarios.value.trim(),enlace:location.search});
+ var body=new URLSearchParams({id:ID,nombre:nombre,asistencia:F.asistencia.value,adultos:ad,ninos:ni,total:ad+ni,acompanantes:'',comentarios:'',enlace:location.search});
  btn.disabled=true;btn.textContent='ENVIANDO…';msg('');
  fetch(RSVP_URL,{method:'POST',mode:'no-cors',body:body}).then(function(){
   btn.disabled=false;btn.textContent='ENVIAR CONFIRMACIÓN';F.hidden=true;G.hidden=false;
